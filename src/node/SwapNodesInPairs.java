@@ -8,11 +8,11 @@ package node;
 public class SwapNodesInPairs {
     static class Solution {
         /**
-         * 设置3个指针，，
+         * 设置3个指针
          * (执行用时：0 ms, 在所有 Java 提交中击败了100.00% 的用户)
          * (内存消耗：36.1 MB, 在所有 Java 提交中击败了98.40% 的用户)
-         * @param head
-         * @return
+         * @param head 头指针
+         * @return 头指针
          */
         public ListNode swapPairs(ListNode head) {
             if(head == null || head.next == null){
