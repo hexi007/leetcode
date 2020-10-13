@@ -9,6 +9,8 @@ public class BinaryTreeDepth {
     static class Solution {
         /**
          * 如果节点为空则深度为0，否则比较左右孩子节点深度，该节点是左右孩子深度再加上1
+         * (执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户)
+         * (内存消耗：38.3 MB, 在所有 Java 提交中击败了99.01%的用户)
          * @param root 需要判断深度的节点
          * @return 该节点的深度
          */
