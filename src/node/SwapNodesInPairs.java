@@ -50,12 +50,28 @@ public class SwapNodesInPairs {
             }
             return head;
         }
+
+        /**
+         * 递归解决交换问题，直接递归调用自己处理两个之后的所有数据
+         * 再处理两个节点即可
+         * @param head 头节点
+         * @return 头节点
+         */
+        public ListNode swapPairs1(ListNode head) {
+            if(head ==null || head.next == null){
+                return head;
+            }
+            ListNode next = head.next;
+            head.next = swapPairs(next.next);
+            next.next = head;
+            return next;
+        }
     }
 
     public static void main(String[] args) {
         ListNode l = new ListNode(new int[]{1, 2, 3, 4, 5});
         Solution s = new Solution();
-        l = s.swapPairs(l);
+        l = s.swapPairs1(l);
         l.printNodeFromRoot();
     }
 }
