@@ -39,7 +39,7 @@ public class MaximumBinaryTree {
         int[] input = {3,2,1,6,0,5};
         Solution s = new Solution();
         TreeNode root = s.constructMaximumBinaryTree(input);
-        DataStructureBinaryTree.Solution s1 = new DataStructureBinaryTree.Solution();
+        BinaryTreePreorderTraversal.Solution s1 = new BinaryTreePreorderTraversal.Solution();
         List<Integer> ret = s1.preorderTraversal(root);
         s1.printList(ret);
     }
