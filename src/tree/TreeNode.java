@@ -13,7 +13,6 @@ public class TreeNode {
         return Integer.toString(val);
     }
 
-    // int []arr = {3, 9, 20, Integer.MAX_VALUE, Integer.MAX_VALUE, 15, 7};
     private static int[] StrToIntArray(String str) {
         str = str.substring(1, str.length() - 1);
         String []strs = str.split(",");
