@@ -12,8 +12,10 @@ public class FindCommonCharacters {
     static class Solution {
 
         List<String> ret;
-        /***
-        * @Description: 使用两个数组储存字符出现频率
+        /**
+        * 使用两个数组储存字符出现频率
+        * (执行用时：8 ms, 在所有 Java 提交中击败了51.12%的用户)
+        * (内存消耗：38.3 MB, 在所有 Java 提交中击败了100.00%的用户)
         * @param A 字符串数组
         * @return 列表中的每个字符串中都显示的全部字符（包括重复字符）组成的列表
         */
