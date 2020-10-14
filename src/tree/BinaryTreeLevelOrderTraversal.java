@@ -53,7 +53,7 @@ public class BinaryTreeLevelOrderTraversal {
         }
 
         /**
-        * 层序遍历的非递归形式
+        * 层序遍历的递归形式
         * @Param  root 树根节点
         * @return  层序遍历结果
         */
