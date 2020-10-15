@@ -1,2 +1,3 @@
 *.class
-*.jar"out/" 
+*.jar"out/"
+*.xml
