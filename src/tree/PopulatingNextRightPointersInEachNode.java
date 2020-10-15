@@ -40,10 +40,8 @@ public class PopulatingNextRightPointersInEachNode {
             if(root == null){
                 return null;
             }
-            //直接连接根节点左右孩子
             if(root.left != null && root.right != null){
-                root.left.next = root.right;
-                //再调用递归程序处理左右孩子的连接
+                //调用递归程序处理左右孩子的连接
                 connectChild(root.left,root.right);
             }
             return root;
