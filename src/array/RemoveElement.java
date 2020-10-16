@@ -10,6 +10,8 @@ public class RemoveElement {
     static class Solution {
         /**
          * Description 基础的双指针，将不是val的值从头开始复制
+         * (执行用时：0 ms, 在所有 Java 提交中击败了100.00% 的用户)
+         * (内存消耗：37 MB, 在所有 Java 提交中击败了97.58% 的用户)
          * @param nums 待移除元素的数组
          * @param val 需要被移除的元素值
          * return  移除后数组的新长度
