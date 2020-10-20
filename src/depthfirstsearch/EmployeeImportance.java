@@ -1,9 +1,6 @@
 package depthfirstsearch;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * description 给定一个保存员工信息的数据结构，它包含了员工唯一的id，重要度 和 直系下属的id。
@@ -30,7 +27,7 @@ public class EmployeeImportance {
 
     static class Solution {
         /**
-         * 递归重要度之和
+         * 递归重要度之和，其实也是dfs非递归
          * (执行用时：9 ms, 在所有 Java 提交中击败了38% 的用户)
          * (内存消耗：39.8 MB, 在所有 Java 提交中击败了89% 的用户)
          * @param employees 整个employee数组
@@ -38,6 +35,9 @@ public class EmployeeImportance {
          * @return  该领导和他所有下属的重要度之和
          */
         public int getImportance(List<Employee> employees, int id) {
+            //只要一行就能找到list符合id的employee
+            //Employee e = employees.stream().filter(employee -> employee.id == id)
+            // .findFirst().orElse(null);
             Employee employee = null;
             for(Employee e : employees){
                 if(e.id == id){
@@ -75,10 +75,10 @@ public class EmployeeImportance {
 
         Stack<Integer> stack = new Stack<>();
         /**
-         *  广度优先搜索
+         *  深度优先搜索
          *  (执行用时：17 ms, 在所有 Java 提交中击败了7.72% 的用户)
          *  (内存消耗：39.6 MB, 在所有 Java 提交中击败了95.36% 的用户)
-         * @param employees 整个employee数组
+         *  @param employees 整个employee数组
          *  @param id 当前领导id
          *  @return  该领导和他所有下属的重要度之和
          */
@@ -102,6 +102,35 @@ public class EmployeeImportance {
             return allImportance;
         }
 
+        Map<Integer, Employee> map;
+        Deque<Employee> deque;
+
+        /**
+         * 广度优先遍历,借助map快速根据id取employee
+         * (执行用时：6 ms, 在所有 Java 提交中击败了96.84%的用户)
+         * (内存消耗：39.4 MB, 在所有 Java 提交中击败了98.64%的用户)
+         * @param employees 整个employee数组
+         * @param id 当前领导id
+         * @return  该领导和他所有下属的重要度之和
+         */
+        public int getImportance3(List<Employee> employees, int id){
+            map = new HashMap<>(employees.size());
+            for(Employee e : employees){
+                map.put(e.id, e);
+            }
+            deque = new LinkedList<>();
+            deque.offer(map.get(id));
+            int sum = 0;
+            while (!deque.isEmpty()){
+                Employee employee = deque.poll();
+                sum += employee.importance;
+                for(Integer i : employee.subordinates){
+                    deque.offer(map.get(i));
+                }
+            }
+            return sum;
+        }
+
     }
 
     public static void main(String[] args) {
@@ -110,6 +139,6 @@ public class EmployeeImportance {
         employeeList.add(new Employee(2, 3 , new ArrayList<>()));
         employeeList.add(new Employee(3, 3 , new ArrayList<>()));
 
-        System.out.println(new Solution().getImportance1(employeeList, 1));
+        System.out.println(new Solution().getImportance3(employeeList, 1));
     }
 }
