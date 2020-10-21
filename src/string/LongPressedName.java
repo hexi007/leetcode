@@ -11,6 +11,7 @@ public class LongPressedName {
     static class Solution {
         /**
          * 暴力搜
+         * 把String转charname.toCharArray()会快很多
          * (执行用时：1 ms, 在所有 Java 提交中击败了86.83% 的用户)
          * (内存消耗：36.7 MB, 在所有 Java 提交中击败了65.90% 的用户)
          * @param name 名字
