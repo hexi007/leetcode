@@ -11,6 +11,8 @@ public class LongPressedName {
     static class Solution {
         /**
          * 暴力搜
+         * (执行用时：1 ms, 在所有 Java 提交中击败了86.83% 的用户)
+         * (内存消耗：36.7 MB, 在所有 Java 提交中击败了65.90% 的用户)
          * @param name 名字
          * @param typed 输入字符串
          * @return  输入字符串去掉不必要的长按后是否为名字
