@@ -1,8 +1,5 @@
 package array;
 
-import javax.sound.midi.SoundbankResource;
-import java.util.Vector;
-
 /**
  * description 我们把数组 A 中符合下列属性的任意连续子数组 B 称为 “山脉”：
  * B.length >= 3
