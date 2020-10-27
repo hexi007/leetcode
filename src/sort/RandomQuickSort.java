@@ -30,7 +30,7 @@ public class RandomQuickSort {
     private void swap(int[] a, int i, int j) {
         int temp = a[i];
         a[i] = a[j];
-        a[j] = a[i];
+        a[j] = temp;
     }
 
     public static void main(String[] args) {
@@ -38,7 +38,7 @@ public class RandomQuickSort {
         RandomQuickSort rq = new RandomQuickSort();
         rq.sort(a, 0, a.length - 1);
 
-        System.out.println(Arrays.toString(a));;
+        System.out.println(Arrays.toString(a));
     }
 
 }
