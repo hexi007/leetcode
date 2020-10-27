@@ -8,40 +8,28 @@ package array;
  **/
 public class RemoveDuplicatesFromSortedArrayTwo {
     static class Solution {
+        /**
+         先记录头两个，再将后面的依次与倒数第2个比较，这样最多有两个重复
+         (执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户)
+         (内存消耗：38.4 MB, 在所有 Java 提交中击败了95.28%的用户)
+         * @param nums 数组
+         * @return  去重之后数组长度
+         */
         public int removeDuplicates(int[] nums) {
-            int minSize = 2;
-            if (nums.length <= minSize) {
-                return nums.length;
-            }
-            int indexFirst = 0, numberOfRepetitions = 0;
-            for (int temp = 0; temp < nums.length; temp++) {
-                if (nums[indexFirst] == nums[temp] && numberOfRepetitions > 1) {
-                    indexFirst++;
-                    numberOfRepetitions--;
-                } else if (nums[indexFirst] == nums[temp] && numberOfRepetitions <= 1) {
-                    numberOfRepetitions++;
-                } else if(numberOfRepetitions > 0){
-                    indexFirst++;
-                    temp--;
-                    numberOfRepetitions--;
-                } else {
-                    nums[indexFirst] = nums[temp];
-                    indexFirst++;
-                    numberOfRepetitions = 1;
+            int i = 0;
+            for(int n : nums){
+                if(i < 2 || n != nums[i -2]){
+                    nums[i++] = n;
                 }
-
             }
-            return indexFirst;
+            return i;
         }
     }
 
     public static void main(String[] args) {
-        int[] nums = {1,1,1,2,2,3};
+        int[] nums = {1,2};
         Solution solution = new Solution();
         int ret = solution.removeDuplicates(nums);
         System.out.println(ret);
-        for(int i = 0 ;i < ret; i++){
-            System.out.println(nums[i]);
-        }
     }
 }
