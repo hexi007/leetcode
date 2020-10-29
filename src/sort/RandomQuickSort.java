@@ -12,6 +12,10 @@ import java.util.Random;
  **/
 public class RandomQuickSort {
 
+    private void quickSort(int[] a) {
+        sort(a, 0, a.length - 1);
+    }
+
     /**
      *  递归的排序两个区间
      * @param a 待排序数组
@@ -61,8 +65,7 @@ public class RandomQuickSort {
     public static void main(String[] args) {
         int[] a = {13, 19, 9, 5, 12, 8, 7, 4, 21, 2, 6, 11};
         RandomQuickSort rq = new RandomQuickSort();
-        rq.sort(a, 0, a.length - 1);
-
+        rq.quickSort(a);
         System.out.println(Arrays.toString(a));
     }
 
