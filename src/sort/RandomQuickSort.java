@@ -38,7 +38,7 @@ public class RandomQuickSort {
         int randomIndex = new Random().nextInt(right - left + 1) + left;
         swap(a, randomIndex, right);
 
-        //x 基准数 ，i 从 left 到 i 存放比基准数小的元素
+        //x 基准数，从 left 到 i 存放比基准数小的元素
         int x = a[right], i = left - 1;
         for(int j = left; j < right; j++){
             //如果当前元素比基准数小，就和当前 i 位置的元素交换位置
