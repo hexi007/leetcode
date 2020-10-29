@@ -12,7 +12,7 @@ import java.util.Random;
  **/
 public class RandomQuickSort {
 
-    private void quickSort(int[] a) {
+    private void randomQuickSort(int[] a) {
         sort(a, 0, a.length - 1);
     }
 
@@ -65,7 +65,7 @@ public class RandomQuickSort {
     public static void main(String[] args) {
         int[] a = {13, 19, 9, 5, 12, 8, 7, 4, 21, 2, 6, 11};
         RandomQuickSort rq = new RandomQuickSort();
-        rq.quickSort(a);
+        rq.randomQuickSort(a);
         System.out.println(Arrays.toString(a));
     }
 
