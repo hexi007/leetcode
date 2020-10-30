@@ -11,15 +11,15 @@ import java.util.Arrays;
 public class HeapSort {
 
     private void sort(int[] a) {
-         int half = 2;
-         for(int i = a.length / half - 1; i >= 0; i--){
+        int half = 2;
+        for(int i = a.length / half - 1; i >= 0; i--){
             //调整大顶堆
             adjustHeap(a, i, a.length);
-         }
-         for(int i = a.length - 1; i > 0; i--){
-             swap(a, 0, i);
-             adjustHeap(a, 0, i);
-         }
+        }
+        for(int i = a.length - 1; i > 0; i--){
+            swap(a, 0, i);
+            adjustHeap(a, 0, i);
+        }
     }
 
     private void adjustHeap(int[] a, int index, int length) {
@@ -29,7 +29,7 @@ public class HeapSort {
                 k++;
             }
             if(a[k] > a[index]){
-                a[index] = a[k];
+                swap(a, k, index);
                 index = k;
             } else {
                 break;
