@@ -72,6 +72,12 @@ public class KClosestPointsToOrigin {
             return res;
         }
 
+        /**
+          调整堆
+         * @param a      点对象数组
+         * @param index  当前节点
+         * @param length 点对象数组长度
+         */
         private void adjustHeap(Point[] a, int index, int length) {
             Point temp = a[index];
             for(int k = 2 * index + 1; k < length; k = 2 * k + 1){
