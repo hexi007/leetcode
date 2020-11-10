@@ -42,7 +42,7 @@ public class KClosestPointsToOrigin {
                         ", distance=" + distance +
                         '}';
             }
-        };
+        }
 
         /**
          * 建堆调整堆，取前 k 个
