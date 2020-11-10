@@ -46,6 +46,12 @@ public class ZeroMatrix {
             }
         }
 
+        /**
+         * 用 ArrayList 保存为 0 的行和列，统计后将对应行列置 0
+         * (执行用时：1 ms, 在所有 Java 提交中击败了99.97%的用户)
+         * (的用户内存消耗：40.2 MB, 在所有 Java 提交中击败了61.31%的用户)
+         * @param matrix 矩阵
+         */
         public void setZeroes1(int[][] matrix) {
             ArrayList<Integer> list = new ArrayList<>();
             int lenX = matrix.length, lenY = matrix[0].length;
