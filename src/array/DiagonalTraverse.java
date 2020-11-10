@@ -13,25 +13,36 @@ public class DiagonalTraverse {
 
     static class Solution {
         /** 
-         *  
-         * @param matrix 1 
-         * @return  
+         * 先设方向右上，如果下一个位置不可达就先考虑是否可以向右走
+         * 向右不可行就向下并设置方向向左下
+         * 方向左下，如果下一个位置不可达就先考虑是否可以向下走
+         * 向下不可行就向右并设置方向向右上
+         * @param matrix 矩阵
+         * @return       对角线遍历数组
          */
         public int[] findDiagonalOrder(int[][] matrix) {
             if (matrix == null || matrix.length == 0) {
                 return new int[0];
             }
             boolean up = true;
+
+            /*
+             * lenX 矩阵行数
+             * lenY 矩阵列数
+             */
             int lenX = matrix.length, lenY = matrix[0].length;
             int[] res = new int[lenX * lenY];
             int k = 0;
             res[k++] = matrix[0][0];
+
             for (int i = 0, j = 0; k < lenX * lenY; k++) {
                 int x, y;
                 if (up) {
                     x = i - 1;
                     y = j + 1;
+                    // 位置不可行
                     if (x == -1 || y == lenY) {
+                        // 向右可行
                         if (y < lenY) {
                             x = i;
                             y = j + 1;
@@ -44,7 +55,9 @@ public class DiagonalTraverse {
                 } else {
                     x = i + 1;
                     y = j - 1;
+                    // 位置不可行
                     if (x == lenX || y == -1) {
+                        // 向下可行
                         if (i + 1 < lenX) {
                             x = i + 1;
                             y = j;
@@ -55,7 +68,10 @@ public class DiagonalTraverse {
                         up = true;
                     }
                 }
+
+                //加入对角线数组
                 res[k] = matrix[x][y];
+                //更新位置
                 i = x;
                 j = y;
             }
