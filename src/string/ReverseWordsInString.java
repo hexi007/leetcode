@@ -1,9 +1,7 @@
 package string;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * description 给定一个字符串，逐个翻转字符串中的每个单词。
