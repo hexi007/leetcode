@@ -56,12 +56,33 @@ public class ValidateStackSequences {
             }
             return true;
         }
+
+        /**
+         * 直接在 pushed 基础上模拟栈的实现
+         * (执行用时：0 ms, 在所有 Java 提交中击败了100.00% 的用户)
+         * (内存消耗：38 MB, 在所有 Java 提交中击败了94.16% 的用户)
+         * @param pushed 入栈操作序列
+         * @param popped 出栈操作序列
+         * @return       出栈操作是否有效
+         */
+        public boolean validateStackSequences1(int[] pushed, int[] popped) {
+            // stackIndex 栈顶指针
+            int stackIndex= 0;
+            for (int i = 0, j = 0; i < pushed.length; i++) {
+                pushed[stackIndex++] = pushed[i];
+                while (stackIndex != 0 && pushed[stackIndex - 1] == popped[j]) {
+                    stackIndex--;
+                    j++;
+                }
+            }
+            return stackIndex == 0;
+        }
+
     }
 
     public static void main(String[] args) {
         int[] pushed = {1,2,3,4,5};
         int[] popped = {4,3,5,1,2};
-        System.out.println(new Solution().validateStackSequences(pushed,
-                popped));
+        System.out.println(new Solution().validateStackSequences1(pushed,popped));
     }
 }
