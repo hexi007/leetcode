@@ -1,11 +1,16 @@
 package node;
 
+/**
+ * description 链表节点类
+ *
+ * @author 27771
+ * create 2020-11-13 15:03
+ **/
 public class ListNode {
     int val;
     ListNode next;
     ListNode() {}
     ListNode(int val) { this.val = val; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 
     ListNode (int[] input){
         ListNode temp = this;
@@ -21,11 +26,13 @@ public class ListNode {
     public void printNodeFromRoot(){
         ListNode temp = this;
         while(temp != null){
-            System.out.print(temp.val + " ");
+            System.out.print(temp.val + " -> ");
             temp = temp.next;
         }
-        System.out.println();
+        System.out.println("null");
     }
+
+
 
     public static void main(String[] args) {
         ListNode root = new ListNode(new int[]{1, 2, 3, 4});
