@@ -2,7 +2,6 @@ package array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -59,12 +58,7 @@ public class QueueReconstructionByHeight {
                 return new int[0][0];
             }
             //按照 h 降序 K 升序排序
-            Arrays.sort(people, new Comparator<int[]>() {
-                @Override
-                public int compare(int[] o1, int[] o2) {
-                    return o1[0] == o2[0] ? o1[1] - o2[1] : o2[0] - o1[0];
-                }
-            });
+            Arrays.sort(people, (o1, o2) -> o1[0] == o2[0] ? o1[1] - o2[1] : o2[0] - o1[0]);
             List<int[]> list = new ArrayList<>();
             //K 值定义为排在 h 前面且身高大于或等于 h 的人数
             //因为从身高降序开始插入，此时所有人身高都大于等于 h
@@ -80,6 +74,9 @@ public class QueueReconstructionByHeight {
         int[][] people = {};
         int[][] res = new Solution().reconstructQueue(people);
         Arrays.stream(res).forEach((x) -> System.out.print(Arrays.toString(x) + " "));
+        System.out.println();
+        int[][] res1 = new Solution().reconstructQueue1(people);
+        Arrays.stream(res1).forEach((x) -> System.out.print(Arrays.toString(x) + " "));
         System.out.println();
     }
 }
