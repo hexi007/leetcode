@@ -31,14 +31,14 @@ public class ShiftingLetters {
                 shifts[i] %= 26;
             }
             // 从右往左计算每个字符移位次数
-            myShifts[shifts.length - 1] = shifts[shifts.length - 1];
-            for (int i = shifts.length - 2; i >= 0 ; i--) {
-                myShifts[i] = shifts[i] + myShifts[i + 1];
-            }
             char[] charMap={'a','b','c','d','e','f','g','h','i','j','k','l','m',
                     'n','o','p','q','r','s','t','u','v','w','x','y','z'};
-            for (int i = 0; i < chars.length; i++) {
-                // charMap 快速映射
+            myShifts[shifts.length - 1] = shifts[shifts.length - 1];
+            // 每次都计算移位后最终字符
+            chars[shifts.length - 1] = charMap[(chars[shifts.length - 1] - 97
+                    + myShifts[shifts.length - 1]) % 26];
+            for (int i = (shifts.length - 1) - 1; i >= 0 ; i--) {
+                myShifts[i] = shifts[i] + myShifts[i + 1];
                 chars[i] = charMap[(chars[i] - 97 + myShifts[i]) % 26];
             }
             return new String(chars);
