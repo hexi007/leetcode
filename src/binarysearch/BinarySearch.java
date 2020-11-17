@@ -23,7 +23,7 @@ public class BinarySearch {
 
         private int binarySearch(int[] nums, int target, int left, int right) {
             // 防止溢出
-            int mid = (left + right) >> 1;
+            int mid = left + (right - left) / 2;
             // 没找到
             if (left > right) {
                 return -1;
@@ -49,7 +49,7 @@ public class BinarySearch {
         public int search1(int[] nums, int target) {
             int left = 0, right = nums.length - 1;
             while (left <= right) {
-                int mid = (left + right) >> 1;
+                int mid = left + (right - left) / 2;
                 if (nums[mid] == target) {
                     return mid;
                 }
