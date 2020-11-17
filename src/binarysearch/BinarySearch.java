@@ -49,6 +49,8 @@ public class BinarySearch {
         public int search1(int[] nums, int target) {
             int left = 0, right = nums.length - 1;
             while (left <= right) {
+                // int mid = (right + left) >>> 1 无符号右移也是可以的
+                // 不过牺牲了可读性
                 int mid = left + (right - left) / 2;
                 if (nums[mid] == target) {
                     return mid;
