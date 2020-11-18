@@ -14,49 +14,73 @@ import java.util.Arrays;
 public class FindFirstAndLastPosition {
 
     static class Solution {
+        int start = -1, end = -1;
         public int[] searchRange(int[] nums, int target) {
-            int begin = -1, end = -1;
-            if (nums.length <= 2) {
+
+            int two = 2;
+            if ( nums.length <= two) {
                 for (int i = 0; i < nums.length; i++) {
                     if (nums[i] == target) {
-                        if (begin == -1) {
-                            begin = i;
+                        if (start == -1) {
+                            start = i;
                         }
                         end = i;
                     }
                 }
-                return new int[]{begin, end};
+                return new int[] {start, end};
             }
 
             int left = 0, right = nums.length - 1;
-            while (left + 1 < right) {
+            while (left <= right) {
                 int mid = (left + right) >>> 1;
                 if (nums[mid] == target) {
-                    int temp = mid;
-                    while (temp - 1 >= 0 && nums[temp - 1] == target) {
-                        temp--;
-                    }
-                    begin = temp;
-                    temp = mid;
-                    if (temp < nums.length && nums[temp] == target) {
-                        temp++;
-                    }
-                    end = temp;
-                    System.out.println(left + " " + right + " " + mid + " " + begin + " " + end);
-                    return new int[]{begin, end};
+                    //System.out.println(mid);
+                    start = mid;
+                    end = mid;
+                    findStart(nums, target, left, mid);
+                    findEnd(nums, target, mid, right);
+                    return new int[] {start, end};
                 } else if (nums[mid] < target) {
-                    left = mid;
+                    left = mid + 1;
                 } else {
-                    right = mid;
+                    right = mid - 1;
                 }
             }
+            return new int[] {start, end};
+        }
 
-            if (nums[left] == target) {
-                return new int[]{left, left};
-            } else if (nums[right] == target){
-                return new int[]{right, right};
+        private void findStart(int[] nums, int target, int left, int right) {
+            if (left > right) {
+                return;
             }
-            return new int[]{begin, end};
+            int mid = (left + right) >>> 1;
+            if (nums[mid] == target) {
+                boolean find =mid - 1 < left || (mid - 1 >= left && nums[mid - 1] != target);
+                if (find) {
+                    start = mid;
+                } else {
+                    findStart(nums, target, left, mid - 1);
+                }
+            } else {
+                findStart(nums, target, mid + 1, right);
+            }
+        }
+
+        private void findEnd(int[] nums, int target, int left, int right) {
+            if (left > right) {
+                return;
+            }
+            int mid = (left + right) >>> 1;
+            if (nums[mid] == target) {
+                boolean find = mid + 1 > right || (mid + 1 <= right && nums[mid + 1] != target);
+                if (find) {
+                    end = mid;
+                } else {
+                    findEnd(nums, target, mid + 1, right);
+                }
+            } else {
+                findEnd(nums, target, left, mid - 1);
+            }
         }
     }
 
