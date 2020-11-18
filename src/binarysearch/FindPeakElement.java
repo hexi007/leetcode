@@ -30,6 +30,7 @@ public class FindPeakElement {
                 return nums[0] > nums[1] ? 0 : 1;
             }
             int left = 0, right = nums.length - 1;
+            // 保证查找空间至少有两个元素
             while (left < right) {
                 int mid = (left + right) >>> 1;
                 // 此时边界一定是峰值
