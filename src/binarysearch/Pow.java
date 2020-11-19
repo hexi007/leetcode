@@ -12,6 +12,8 @@ public class Pow {
         
         /** 
          * 考虑 n 的正负
+         * (执行用时：1 ms, 在所有 Java 提交中击败了97.76%的用户)
+         * (内存消耗：37.8 MB, 在所有 Java 提交中击败了21.03%的用户)
          * @param x 底数
          * @param n 幂数
          * @return  x 的 n 次幂
