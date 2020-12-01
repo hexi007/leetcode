@@ -1,4 +1,4 @@
-package array;
+package greedyalgorithm;
 
 import java.util.Arrays;
 
