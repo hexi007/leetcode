@@ -1,6 +1,8 @@
 package node;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * description 给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。
@@ -14,55 +16,117 @@ import java.util.Arrays;
 public class AddTwoNumbersTwo {
 
     static class Solution {
+
+        /**
+         * 先求和再构造链表,尾插法
+         * (执行用时：5 ms, 在所有 Java 提交中击败了49.88%的用户)
+         * (内存消耗：38.9 MB, 在所有 Java 提交中击败了65.78%的用户)
+         *
+         * @param l1 链表 1
+         * @param l2 链表 2
+         * @return   相加后新的链表
+         */
         public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-            int node1Length = 0;
+            Stack<Integer> stack1 = new Stack<>();
             ListNode temp = l1;
             while (temp != null) {
-                node1Length++;
+                stack1.push(temp.val);
                 temp = temp.next;
             }
-            int node2Length = 0;
+            Stack<Integer> stack2 = new Stack<>();
             temp = l2;
             while (temp != null) {
-                node2Length++;
+                stack2.push(temp.val);
                 temp = temp.next;
             }
-            int maxLength = Math.max(node1Length, node2Length);
-            int minLength = Math.min(node1Length, node2Length);
-            temp = node1Length > node2Length ? l1 : l2;
-            ListNode temp1 = node1Length > node2Length ? l2 : l1;
-            int[] carryBit = new int[maxLength + 1];
-
-            ListNode res = new ListNode();
-            ListNode tempRes = res;
-            for (int i = 0; i < maxLength; i++) {
-                ListNode temp2 = new ListNode();
-                if (maxLength - minLength > i) {
-                    temp2.val = temp.val;
-                    temp = temp.next;
+            List<Integer> list = new ArrayList<>();
+            int carryBit = 0, sum;
+            while (!stack1.isEmpty() || !stack2.isEmpty()) {
+                if (!stack1.isEmpty() && !stack2.isEmpty()) {
+                    sum = stack1.pop() + stack2.pop() + carryBit;
+                } else if (!stack1.isEmpty()) {
+                    sum = stack1.pop() + carryBit;
                 } else {
-                    System.out.println(temp.val + " " + temp1.val);
-                    int sum = temp.val + temp1.val;
-                    temp = temp.next;
-                    temp1 = temp1.next;
-                    if (sum >= 10) {
-                        sum %= 10;
-                        carryBit[i + 1] = 1;
-                    }
-                    temp2.val = sum;
+                    sum = stack2.pop() + carryBit;
                 }
-                tempRes.next = temp2;
-                tempRes = tempRes.next;
+                if (sum >= 10) {
+                    sum %= 10;
+                    carryBit = 1;
+                } else {
+                    carryBit = 0;
+                }
+                list.add(sum);
             }
-            System.out.println(Arrays.toString(carryBit));
+            if (carryBit == 1) {
+                list.add(1);
+            }
+            ListNode res = new ListNode();
+            temp = res;
+            for (int i = list.size() - 1; i >= 0; i--) {
+                ListNode newNode = new ListNode(list.get(i));
+                temp.next = newNode;
+                temp = newNode;
+            }
+            return res.next;
+        }
+
+        /**
+         * 先求和再构造链表,头插法
+         * (执行用时：5 ms, 在所有 Java 提交中击败了49.88%的用户)
+         * (内存消耗：38.9 MB, 在所有 Java 提交中击败了65.78%的用户)
+         *
+         * @param l1 链表 1
+         * @param l2 链表 2
+         * @return   相加后新的链表
+         */
+        public ListNode addTwoNumbers1(ListNode l1, ListNode l2) {
+            Stack<Integer> stack1 = new Stack<>();
+            ListNode temp = l1;
+            while (temp != null) {
+                stack1.push(temp.val);
+                temp = temp.next;
+            }
+            Stack<Integer> stack2 = new Stack<>();
+            temp = l2;
+            while (temp != null) {
+                stack2.push(temp.val);
+                temp = temp.next;
+            }
+            int carryBit = 0, sum;
+            ListNode res = null;
+            while (!stack1.isEmpty() || !stack2.isEmpty()) {
+                if (!stack1.isEmpty() && !stack2.isEmpty()) {
+                    sum = stack1.pop() + stack2.pop() + carryBit;
+                } else if (!stack1.isEmpty()) {
+                    sum = stack1.pop() + carryBit;
+                } else {
+                    sum = stack2.pop() + carryBit;
+                }
+                if (sum >= 10) {
+                    sum %= 10;
+                    carryBit = 1;
+                } else {
+                    carryBit = 0;
+                }
+                ListNode newNode = new ListNode(sum);
+                newNode.next = res;
+                res = newNode;
+            }
+            if (carryBit == 1) {
+                ListNode newNode = new ListNode(carryBit);
+                newNode.next = res;
+                res = newNode;
+            }
             return res;
         }
     }
 
     public static void main(String[] args) {
-        ListNode l1 = new ListNode(new int[]{7,5,4,3});
-        ListNode l2 = new ListNode(new int[]{5,6,4});
+        ListNode l1 = new ListNode(new int[]{5});
+        ListNode l2 = new ListNode(new int[]{5});
         ListNode ret = new Solution().addTwoNumbers(l1,l2);
         ret.printNodeFromRoot();
+        ListNode ret1 = new Solution().addTwoNumbers1(l1,l2);
+        ret1.printNodeFromRoot();
     }
 }
