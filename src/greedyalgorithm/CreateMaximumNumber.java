@@ -26,15 +26,20 @@ public class CreateMaximumNumber {
          */
         public int[] maxNumber(int[] nums1, int[] nums2, int k) {
             int m = nums1.length, n = nums2.length;
+            // 最大序列
             int[] maxSubsequence = new int[k];
             // start,end 含义是指从 nums1 中可取数的范围
             // 如果 k > n,则 nums1 至少要取 k - n 个
             // 同时如果 k > m， 那 nums1 最多也就能取 m 个数
             int start = Math.max(0, k - n), emd = Math.min(k, m);
             for (int i = start; i <= emd; i++) {
+                // nums1 中选 i 个数
                 int[] subSequence1 = maxSubsequence(nums1, i);
+                // nums2 中选 k - i 个数
                 int[] subSequence2 = maxSubsequence(nums2, k - i);
+                // 合并 subSequence1，subSequence2
                 int[] currSubSequence = merge(subSequence1, subSequence2);
+                // 比较是否比 maxSubsequence 大
                 if (compare(currSubSequence, 0, maxSubsequence, 0) > 0) {
                     System.arraycopy(currSubSequence, 0, maxSubsequence, 0, k);
                 }
@@ -42,12 +47,20 @@ public class CreateMaximumNumber {
             return maxSubsequence;
         }
 
+        /**
+         * 单调递增栈从数组中选 k 个数，使得 k 个数序列最大
+         *
+         * @param nums 数组
+         * @param k    k 个数
+         * @return     选出序列最大的 k 个数
+         */
         private int[] maxSubsequence(int[] nums, int k) {
             int length = nums.length;
             int[] stack = new int[k];
             int stackIndex = -1;
             int remain = length - k;
             for (int num : nums) {
+                // remain 确保还有足够的数可以入栈
                 while (stackIndex >= 0 && stack[stackIndex] < num && remain > 0) {
                     stackIndex--;
                     remain--;
@@ -61,6 +74,13 @@ public class CreateMaximumNumber {
             return stack;
         }
 
+        /**
+         * 合并两个序列
+         *
+         * @param subSequence1 序列 1
+         * @param subSequence2 序列 2
+         * @return             合并后序列
+         */
         private int[] merge(int[] subSequence1, int[] subSequence2) {
             int x = subSequence1.length, y = subSequence2.length;
             if (x == 0) {
@@ -73,6 +93,7 @@ public class CreateMaximumNumber {
             int[] merged = new int[mergeLength];
             int index1 = 0, index2 = 0;
             for (int i = 0; i < mergeLength; i++) {
+                // 选两个序列当前位置最大的元素
                 if (compare(subSequence1, index1, subSequence2, index2) > 0) {
                     merged[i] = subSequence1[index1++];
                 } else {
@@ -82,6 +103,14 @@ public class CreateMaximumNumber {
             return merged;
         }
 
+        /**
+         * 比较两个序列
+         * @param subSequence1 序列 1
+         * @param index1       序列 1 当前位置
+         * @param subSequence2 序列 2
+         * @param index2       序列 2 当前位置
+         * @return             序列 1 是否比 序列 2 大
+         */
         private int compare(int[] subSequence1, int index1, int[] subSequence2, int index2) {
             int x = subSequence1.length, y = subSequence2.length;
             while (index1 < x && index2 < y) {
@@ -92,6 +121,7 @@ public class CreateMaximumNumber {
                 index1++;
                 index2++;
             }
+            // 有一个序列位置到了末尾
             return (x - index1) - (y - index2);
         }
     }
