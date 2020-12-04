@@ -20,7 +20,8 @@ public class SplitArrayIntoConsecutiveSubsequences {
         Map<Integer, Integer> tail;
 
         /**
-         * 每次比较数是否能和前面的数构成新的序列
+         * 每次比较数是否能和前面的数构成新的序列，如果不能再考虑能否构造新的序列
+         * 上述方法都不可行代表数组不可分割
          * (执行用时：37 ms, 在所有 Java 提交中击败了36.70%的用户)
          * (内存消耗：39.6 MB, 在所有 Java 提交中击败了69.39%的用户)
          *
