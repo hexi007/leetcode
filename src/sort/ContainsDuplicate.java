@@ -1,5 +1,6 @@
 package sort;
 
+import java.lang.ref.SoftReference;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,19 +41,86 @@ public class ContainsDuplicate {
             return false;
         }
 
+        /**
+         * 利用归并排序找重复元素
+         * (执行用时：3 ms, 在所有 Java 提交中击败了99.58%的用户)
+         * (内存消耗：41.6 MB, 在所有 Java 提交中击败了94.01%的用户)
+         *
+         * @param nums 整数数组
+         * @return     是否存在重复元素
+         */
         public boolean containsDuplicate1(int[] nums) {
             return mergeSort(nums, 0, nums.length - 1);
         }
 
+        /**
+         * 递归调用自身并合并已经排好序的数组
+         *
+         * @param nums 整数数组
+         * @param low  待排序数组开始位置
+         * @param high 待排序数组结束位置
+         * @return     是否存在重复元素
+         */
         private boolean mergeSort(int[] nums, int low, int high) {
             int mid = (low + high) >>> 1;
+            if (low < high) {
+                // 排序过程中有重复元素直接返回
+                if (mergeSort(nums, low, mid)) {
+                    return true;
+                }
+                if (mergeSort(nums, mid + 1, high)) {
+                    return true;
+                }
+                return merge(nums, low, mid, high);
+            }
+            return false;
+        }
+
+        /**
+         * 合并排好序的数组
+         *
+         * @param nums 整数数组
+         * @param low  待排序数组开始位置
+         * @param mid  中间位置
+         * @param high 待排序数组结束位置
+         * @return     是否存在重复元素
+         */
+        private boolean merge(int[] nums, int low, int mid, int high) {
+            int lowIndex = low, highIndex = mid + 1, tempIndex = 0;
+            int[] tempArray = new int[high - low + 1];
+
+            // 将较小的数保存在临时数组中
+            while (lowIndex <= mid && highIndex <= high) {
+                // 发现有重复就返回 true
+                if (nums[lowIndex] == nums[highIndex]) {
+                    return true;
+                }
+                if (nums[lowIndex] < nums[highIndex]) {
+                    tempArray[tempIndex++] = nums[lowIndex++];
+                } else {
+                    tempArray[tempIndex++] = nums[highIndex++];
+                }
+            }
+
+            // 如果左半部分还有剩余就将其保存到临时数组
+            while (lowIndex <= mid) {
+                tempArray[tempIndex++] = nums[lowIndex++];
+            }
+
+            // 如果右半部分还有剩余就将其保存到临时数组
+            while (highIndex <= high) {
+                tempArray[tempIndex++] = nums[highIndex++];
+            }
+
+            // 将临时数组写回 nums
+            System.arraycopy(tempArray, 0, nums, low, tempArray.length);
 
             return false;
         }
     }
 
     public static void main(String[] args) {
-        int[] nums = {1,2,3,1};
+        int[] nums = {1,2,3,3};
         System.out.println(new Solution().containsDuplicate(Arrays.copyOf(nums, nums.length)));
         System.out.println(new Solution().containsDuplicate1(Arrays.copyOf(nums, nums.length)));
     }
