@@ -1,6 +1,5 @@
 package sort;
 
-import java.lang.ref.SoftReference;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
