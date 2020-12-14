@@ -117,7 +117,6 @@ public class GroupAnagrams {
                     list.add(str);
                     hashMap.put(hash, list);
                 }
-
             }
 
             return new ArrayList<>(hashMap.values());
