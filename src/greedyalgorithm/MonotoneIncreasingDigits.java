@@ -57,6 +57,33 @@ public class MonotoneIncreasingDigits {
             // 如果没有这样的逆序对，表示原数就是等于 n 且单调递增的最大的整数
             return n;
         }
+
+        /**
+         * 大佬更快的解法，遍历数时直接计算最终结果
+         * (执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户)
+         * (内存消耗：35.4 MB, 在所有 Java 提交中击败了64.27%的用户)
+         *
+         * @param n 非负整数
+         * @return  小于或等于 n 且单调递增的最大的整数
+         */
+        public int monotoneIncreasingDigits1(int n) {
+            // res 最终结果， exp 记录 10 的几次方， p 前一个数
+            int res = 0, exp = 1, p = 10;
+            while (n > 0) {
+                int t = n % 10;
+                if (t <= p) {
+                    res += t * exp;
+                    p = t;
+                }
+                else {
+                    res = t * exp - 1;
+                    p = t - 1;
+                }
+                n /= 10;
+                exp *= 10;
+            }
+            return res;
+        }
     }
 
     public static void main(String[] args) {
