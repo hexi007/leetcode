@@ -46,7 +46,7 @@ public class Candy {
                 if (ratings[i - 1] > ratings[i]) {
                     // 为了不重复创建每次扫描需要的 candies 数组，
                     // 从右往左扫描时比较更新后的 candies[i - 1] 也就是 candies[i] + 1
-                    // 和上面从左往右的原来糖果数 candies[i - 1] 做比较
+                    // 和上面从左往右的原来糖果数 candies[i - 1] 做比较，
                     // 选其中最大的作为孩子 i - 1 最终糖果数
                     candies[i - 1] = Math.max(candies[i - 1], candies[i] + 1);
                 }
