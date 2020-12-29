@@ -1,5 +1,6 @@
 package stack;
 
+import java.lang.reflect.Array;
 import java.util.Stack;
 
 /**
@@ -54,8 +55,8 @@ public class BasicCalculate {
             }
 
 
-            System.out.println(numbers);
-            System.out.println(operators);
+//            System.out.println(numbers);
+//            System.out.println(operators);
 
             long res = numbers.pop();
             while (!operators.isEmpty()) {
@@ -66,8 +67,6 @@ public class BasicCalculate {
                     res = numberPeek - res;
                 }
             }
-
-
 
             return res;
         }
