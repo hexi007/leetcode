@@ -1,7 +1,6 @@
 package greedyalgorithm;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * description 给定长度为 m 的序列 T ,求一个长度为 n 且字典序最小的排列.
@@ -16,19 +15,26 @@ public class Rank {
 
     static class Solution {
 
-        public int[] rank(int[] sequence, int n) {
-            int[] map = new int[100001];
-            for (int m : sequence) {
-                map[m] = 1;
+        public int[] rank(int[] sequence, int n, int m) {
+            // set 存放子序列
+            Set<Integer> set = new HashSet<>();
+            for (int s : sequence) {
+                set.add(s);
             }
-            int[] res = new int[n + 1];
+            int[] res = new int[n];
             int index = 0, indexSequence = 0;
             for (int i = 1; index < n; i++) {
-                if (i > sequence[indexSequence] || map[i] == 1) {
-                    res[index++] = sequence[indexSequence++];
-                    i--;
-                } else {
-                    res[index++] = i;
+                // 只有 i 不在 set 时才考虑 res 中放入结果
+                if (!set.contains(i)) {
+                    // i 大于等于当前子序列数时，res 中放的是当前子序列的数
+                    if (indexSequence < m &&  i >= sequence[indexSequence]) {
+                        res[index++] = sequence[indexSequence++];
+                        // i 还没放入 res,自减等待下一次放入机会
+                        i--;
+                    } else {
+                        // 否则将 i 放入
+                        res[index++] = i;
+                    }
                 }
             }
             return res;
@@ -38,10 +44,16 @@ public class Rank {
     public static void main(String[] args) {
         Solution solution = new Solution();
 
-        Scanner input=new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         int n = input.nextInt(), m = input.nextInt();
         int[] a = new int[m];
-        int[] res = solution.rank(a, n);
-        //System.out.println(Arrays.toString(res));
+        for (int i = 0; i < m; i++) {
+            a[i] = input.nextInt();
+        }
+        int[] res = solution.rank(a, n, m);
+        for (int i = 0; i < n - 1; i++) {
+            System.out.print(res[i] + " ");
+        }
+        System.out.println(res[n - 1]);
     }
 }
