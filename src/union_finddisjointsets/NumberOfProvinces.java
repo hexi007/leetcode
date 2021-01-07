@@ -1,5 +1,7 @@
 package union_finddisjointsets;
 
+import java.util.Stack;
+
 /**
  * description 有 n 个城市，其中一些彼此相连，另一些没有相连。如果城市 a 与城市 b 直接相连，
  * 且城市 b 与城市 c 直接相连，那么城市 a 与城市 c 间接相连。
@@ -15,9 +17,64 @@ package union_finddisjointsets;
 public class NumberOfProvinces {
 
     static class Solution {
+
+        // visited 记录图中哪些点被访问过
+        boolean[] visited;
+        // n 图中顶点数
+        int n;
+
+        /**
+         * 遍历图获取连通分支个数
+         * (执行用时：6 ms, 在所有 Java 提交中击败了20.20%的用户)
+         * (内存消耗：39.3 MB, 在所有 Java 提交中击败了72.72%的用户)
+         *
+         * @param isConnected 图矩阵
+         * @return            连通分支个数
+         */
         public int findCircleNum(int[][] isConnected) {
-            return 0;
+            n = isConnected.length;
+            visited = new boolean[n];
+            int count = 0;
+
+            for (int i = 0; i < n; i++) {
+                // 只有没被访问过的节点才进行深度优先遍历
+                if (!visited[i]) {
+                    dfs(isConnected, i);
+                    // 连通分支个数加一
+                    count++;
+                }
+            }
+
+            return count;
         }
+
+        /**
+         * 深度优先搜索
+         * @param isConnected 图矩阵
+         * @param start       搜索起点
+         */
+        public void dfs(int[][] isConnected, int start) {
+            visited[start] = true;
+            Stack<Integer> stack = new Stack<>();
+            for (int i = 0; i < n; i++) {
+                // 与起点相连且没有被访问过的节点放入栈中
+                if (isConnected[start][i] == 1 && !visited[i]) {
+                    stack.push(i);
+                }
+            }
+            // 栈不空继续搜索
+            while (!stack.isEmpty()) {
+                int now = stack.pop();
+                visited[now] = true;
+                // 同理，与当前图顶点相连且没有被访问过的节点放入栈中
+                for (int i = 0; i < n; i++) {
+                    if (isConnected[now][i] == 1 && !visited[i]) {
+                        stack.push(i);
+                    }
+                }
+            }
+        }
+
     }
 
     public static void main(String[] args) {
