@@ -75,10 +75,112 @@ public class NumberOfProvinces {
             }
         }
 
+        /**
+         * 并查集获取连通分支个数
+         * (执行用时：1 ms, 在所有 Java 提交中击败了99.49%的用户)
+         * (内存消耗：39.2 MB, 在所有 Java 提交中击败了87.29%的用户)
+         *
+         * @param isConnected 图矩阵
+         * @return            连通分支个数
+         */
+        public int findCircleNum1(int[][] isConnected) {
+            n = isConnected.length;
+            UnionFind unionFind = new UnionFind(n);
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < i; j++) {
+                    // 相连的顶点合并
+                    if (isConnected[i][j] == 1) {
+                        unionFind.joinElement(i, j);
+                    }
+                }
+            }
+            return unionFind.count();
+        }
+
+        static class UnionFind {
+            // parent 每个节点的父节点，可以是自身
+            private final int[] parent;
+            // 每个节点的重量（包括自身）
+            private final int[] weight;
+
+            /**
+             * 初始化
+             *
+             * @param size 并查集大小
+             */
+            public UnionFind(int size) {
+                parent = new int[size];
+                weight = new int[size];
+
+                // 开始时每个节点的父节点是自身，重量为 1
+                for (int i = 0; i < size; i++) {
+                    parent[i] = i;
+                    weight[i] = 1;
+                }
+            }
+
+            /**
+             * 找最终父节点
+             *
+             * @param element 自身节点
+             * @return 最终父节点
+             */
+            public int find(int element) {
+                // 当前父节点不是自身，即自己不是最终父节点
+                while (element != parent[element]) {
+                    // 压缩路径，将父节点替换为父节点的父节点
+                    parent[element] = parent[parent[element]];
+                    element = parent[element];
+                }
+                return element;
+            }
+
+            /**
+             * 合并集合
+             *
+             * @param firstElement  元素 1
+             * @param secondElement 元素 2
+             */
+            public void joinElement(int firstElement, int secondElement) {
+                int firstRoot = find(firstElement);
+                int secondRoot = find(secondElement);
+
+                // 先判断是否在同一个集合
+                if (firstRoot == secondRoot) {
+                    return;
+                }
+
+                // 重量大的最终父节点作为合并后的最终父节点，同时更新重量
+                if (weight[firstRoot] > weight[secondRoot]) {
+                    parent[secondRoot] = firstRoot;
+                    weight[firstRoot] += weight[secondRoot];
+                } else {
+                    parent[firstRoot] = secondRoot;
+                    weight[secondRoot] += weight[firstRoot];
+                }
+            }
+
+            /**
+             * 统计并查集有多少个集合
+             *
+             * @return  并查集集合数
+             */
+            public int count() {
+                int res = 0;
+                for (int i = 0; i < this.parent.length; i++) {
+                    // 只有 parent 是自己的才算一个集合
+                    if (this.parent[i] == i) {
+                        res++;
+                    }
+                }
+                return res;
+            }
+        }
     }
 
     public static void main(String[] args) {
         int[][] isConnected = {{1,1,0},{1,1,0},{0,0,1}};
         System.out.println(new Solution().findCircleNum(isConnected));
+        System.out.println(new Solution().findCircleNum1(isConnected));
     }
 }
