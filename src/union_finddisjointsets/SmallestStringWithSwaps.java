@@ -33,6 +33,7 @@ public class SmallestStringWithSwaps {
             }
 
             // map key 是并查集中每一个集合的祖宗节点， value 是该集合对应的所有字符
+            // 使用 PriorityQueue 是为了方便排序，也可手写桶排序，实现速度会更快
             Map<Integer, PriorityQueue<Character>> map = new HashMap<>(16);
             char[] sChars = s.toCharArray();
 
