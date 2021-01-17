@@ -31,6 +31,7 @@ public class CheckStraightLine {
             int b = coordinates[0][0] - coordinates[1][0];
             int c = (coordinates[1][0] * coordinates[0][1])
                     - (coordinates[0][0] * coordinates[1][1]);
+
             for (int i = 2; i < len; i++) {
                 if (a * coordinates[i][0] + b * coordinates[i][1] + c != 0) {
                     return false;
