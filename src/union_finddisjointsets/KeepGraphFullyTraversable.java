@@ -19,7 +19,7 @@ public class KeepGraphFullyTraversable {
     static class Solution {
 
         /**
-         * 优先考虑类型 3 的边也就是公共边，在分别考虑其他类型的边
+         * 优先考虑类型 3 的边也就是公共边，再分别考虑其他类型的边
          * (执行用时：15 ms, 在所有 Java 提交中击败了87.63%的用户)
          * (内存消耗：96.4 MB, 在所有 Java 提交中击败了79.38%的用户)
          *
