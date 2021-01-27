@@ -30,7 +30,7 @@ public class KeepGraphFullyTraversable {
         public int maxNumEdgesToRemove(int n, int[][] edges) {
             // 边为类型 3 的并查集
             UnionFind typeThree = new UnionFind(n);
-            // 边为类型 3 的并查集的拷贝，这个个并查集之和分别给 Alice 和 Bob 用
+            // 边为类型 3 的并查集的拷贝，这两个并查集之后分别给 Alice 和 Bob 用
             UnionFind typeThreeCopy = new UnionFind(n);
             // res 统计过程中可以删除的边
             int res = 0;
