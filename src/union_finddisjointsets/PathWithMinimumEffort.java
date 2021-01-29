@@ -57,7 +57,7 @@ public class PathWithMinimumEffort {
             UnionFind unionFind = new UnionFind(size);
 
             for (Edge edge : edges) {
-                // 断合并消耗体力最小的边
+                // 不断合并消耗体力最小的边
                 unionFind.joinElement(edge.from, edge.to);
                 // 更新最小体力消耗值
                 minStrength = Math.max(minStrength, edge.strength);
