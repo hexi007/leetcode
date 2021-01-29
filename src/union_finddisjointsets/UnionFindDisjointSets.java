@@ -81,6 +81,22 @@ public class UnionFindDisjointSets {
             }
         }
 
+        /**
+         * 统计并查集有多少个集合
+         *
+         * @return  并查集集合数
+         */
+        public int count() {
+            int res = 0;
+            for (int i = 0; i < this.parent.length; i++) {
+                // 只有 parent 是自己的才算一个集合
+                if (this.parent[i] == i) {
+                    res++;
+                }
+            }
+            return res;
+        }
+
     }
 
     public static void main(String[] args) {
