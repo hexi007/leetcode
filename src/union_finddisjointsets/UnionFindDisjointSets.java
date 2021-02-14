@@ -15,12 +15,15 @@ public class UnionFindDisjointSets {
         private final int[] parent;
         // 每个节点的重量（包括自身）
         private final int[] weight;
+        // 并查集大小
+        private int count;
 
         /**
          * 初始化
          * @param size 并查集大小
          */
         public UnionFind(int size) {
+            this.count = size;
             parent = new int[size];
             weight = new int[size];
 
@@ -79,6 +82,8 @@ public class UnionFindDisjointSets {
                 parent[firstRoot] = secondRoot;
                 weight[secondRoot] += weight[firstRoot];
             }
+
+            count--;
         }
 
         /**
@@ -86,15 +91,8 @@ public class UnionFindDisjointSets {
          *
          * @return  并查集集合数
          */
-        public int count() {
-            int res = 0;
-            for (int i = 0; i < this.parent.length; i++) {
-                // 只有 parent 是自己的才算一个集合
-                if (this.parent[i] == i) {
-                    res++;
-                }
-            }
-            return res;
+        public int getCount() {
+            return count;
         }
 
     }
