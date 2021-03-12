@@ -45,7 +45,7 @@ public class VerifyPreorderSerialization {
                     // 数字直接入栈
                     stack[stackIndex++] = c;
                 } else {
-                    // 栈元素大于 1 时遇 # 只要栈顶是 # 就推两个再入 # (此时 c 一定是 #)
+                    // 遇 # 只要栈顶是 # 就推两个再入 # (此时 c 一定是 #)
                     while (stackIndex > 1 && stack[stackIndex - 1] == c) {
                         stackIndex--;
                         // 注意退的第二个栈顶一定不能是 #
@@ -58,7 +58,6 @@ public class VerifyPreorderSerialization {
                 }
             }
 
-            // 栈内只有一个元素才可序列化
             return stackIndex == 1;
         }
     }
