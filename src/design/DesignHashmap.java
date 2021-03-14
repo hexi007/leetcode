@@ -1,7 +1,5 @@
 package design;
 
-import java.util.Arrays;
-
 /**
  * description 不使用任何内建的哈希表库设计一个哈希映射（HashMap）。
  * 实现 MyHashMap 类：
