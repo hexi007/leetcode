@@ -36,6 +36,7 @@ public class OneThreeTwoPattern {
             int[] stack = new int[len];
             int top = 0;
             for (int j = len - 1; j >= 0; j--) {
+                // 考虑 nums[j] 是否是 ‘3’
                 // 只有当前数小于最小前缀两者之间才可能存在 132 模式，即首先满足条件 3 > 1
                 if (nums[j] > min[j]) {
                     // 确保条件 2 > 1 ,只要有 2 <= 1 的情况，直接出栈
