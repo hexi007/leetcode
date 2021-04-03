@@ -1,5 +1,8 @@
 package binarysearch;
 
+import java.util.Collections;
+import java.util.PriorityQueue;
+
 /**
  * description 传送带上的包裹必须在 D 天内从一个港口运送到另一个港口。
  * 传送带上的第 i 个包裹的重量为 weights[i]。每一天，我们都会按给出重量的顺序往传送带上装载包裹。
@@ -14,6 +17,16 @@ public class CapacityToShipPackages {
 
     static class Solution {
         public int shipWithinDays(int[] weights, int d) {
+            int len = weights.length;
+
+            System.out.println(len % d == 0 ? len / d : len / d + 1);
+            PriorityQueue<Integer> queue = new PriorityQueue<>(2,
+                    Collections.reverseOrder());
+            for (int weight : weights) {
+                queue.offer(weight);
+            }
+            System.out.println(queue);
+
             return 0;
         }
     }
