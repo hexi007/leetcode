@@ -12,7 +12,6 @@ package dynamicprogramming;
 public class LongestCommonSubsequence {
 
     static class Solution {
-
         /**
          * 经典动态规划
          * (执行用时：7 ms, 在所有 Java 提交中击败了93.80%的用户)
