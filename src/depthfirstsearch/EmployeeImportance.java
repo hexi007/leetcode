@@ -55,7 +55,13 @@ public class EmployeeImportance {
         }
 
         /**
-         *  最优递归形式
+         * 最优递归形式
+         * (执行用时：10 ms, 在所有 Java 提交中击败了26.11%的用户)
+         * (内存消耗：39.6 MB, 在所有 Java 提交中击败了89.04%的用户)
+         *
+         * @param employees 整个employee数组
+         * @param id 当前领导id
+         * @return  该领导和他所有下属的重要度之和
          */
         public int getImportance1(List<Employee> employees, int id){
             for (Employee e: employees) {
@@ -109,6 +115,7 @@ public class EmployeeImportance {
          * 广度优先遍历,借助map快速根据id取employee
          * (执行用时：6 ms, 在所有 Java 提交中击败了96.84%的用户)
          * (内存消耗：39.4 MB, 在所有 Java 提交中击败了98.64%的用户)
+         *
          * @param employees 整个employee数组
          * @param id 当前领导id
          * @return  该领导和他所有下属的重要度之和
@@ -140,5 +147,6 @@ public class EmployeeImportance {
         employeeList.add(new Employee(3, 3 , new ArrayList<>()));
 
         System.out.println(new Solution().getImportance3(employeeList, 1));
+        System.out.println(new Solution().getImportance2(employeeList, 1));
     }
 }
