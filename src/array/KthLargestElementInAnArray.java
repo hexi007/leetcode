@@ -2,6 +2,7 @@ package array;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 
 /**
  * description 在未排序的数组中找到第 k 个最大的元素。
@@ -24,10 +25,28 @@ public class KthLargestElementInAnArray {
             Arrays.sort(nums);
             return nums[nums.length - k];
         }
+
+        public int findKthLargest1(int[] nums, int k) {
+            PriorityQueue<Integer> queue = new PriorityQueue<>();
+            for (int num : nums) {
+                if (queue.size() < k) {
+                    queue.add(num);
+                } else {
+                    assert !queue.isEmpty();
+                    if (num > queue.peek()) {
+                        queue.poll();
+                        queue.add(num);
+                    }
+                }
+            }
+            assert !queue.isEmpty();
+            return queue.peek();
+        }
     }
 
     public static void main(String[] args) {
         int[] nums = {3,2,1,5,6,4};
         System.out.println(new Solution().findKthLargest(nums, 2));
+        System.out.println(new Solution().findKthLargest1(nums, 2));
     }
 }
