@@ -61,12 +61,12 @@ public class MingRandomNumber {
             for (int i = 0; i < n; i++) {
                 a[i] = input.nextInt();
             }
-            handle(a, n);
+            handle(a);
         }
         WRITE.flush();
     }
 
-    private static void handle(int[] a, int n) throws IOException {
+    private static void handle(int[] a) throws IOException {
         System.out.println(Arrays.toString(a));
         List<Integer> list = Arrays.stream(a).boxed()
                 .distinct()
