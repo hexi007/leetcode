@@ -61,8 +61,7 @@ public class WechatMoments {
             join(firstElement, secondElement);
         }
         int maxWeight = 1;
-        for (int i = 0; i <9; i++) {
-            System.out.println(PARENT[i] + " " + WEIGHT[i]);
+        for (int i = 0; i < N; i++) {
             maxWeight = Math.max(maxWeight, WEIGHT[i]);
         }
         System.out.println(maxWeight);
