@@ -16,6 +16,7 @@ public class FirstMissingPositive {
             for (int i = 0; i < nums.length; i++) {
                 if (nums[i] > 0 && nums[i] <= nums.length) {
                     int index= nums[i];
+
                     nums[i] = -1;
                     while (index > 0 && index <= nums.length && nums[index - 1] != index) {
                         int temp = nums[index - 1];
