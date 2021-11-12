@@ -27,7 +27,6 @@ public class PartitionList {
             ListNode smallTemp = small, bigTemp = big;
 
             while (head != null) {
-                ListNode temp = head.next;
                 // 分别记录比 x 小和大的链表
                 if (head.val < x) {
                     smallTemp.next = head;
@@ -36,9 +35,9 @@ public class PartitionList {
                     bigTemp.next = head;
                     bigTemp = head;
                 }
-                head.next = null;
-                head = temp;
+                head = head.next;
             }
+            bigTemp.next = null;
             // 将两个链表拼接起来
             smallTemp.next = big.next;
             return small.next;
