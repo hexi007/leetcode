@@ -1,5 +1,7 @@
 package dynamicprogramming;
 
+import java.util.Arrays;
+
 /**
  * description  给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。
  * 一个字符串的 子序列 是指这样一个新的字符串：
@@ -39,10 +41,44 @@ public class LongestCommonSubsequence {
 
             return dp[len1][len2];
         }
+
+        public String getLcsString(String text1, String text2) {
+            char[] cs1 = text1.toCharArray(), cs2 = text2.toCharArray();
+            int len1 = cs1.length, len2 = cs2.length;
+            int[][] dp = new int[len1 + 1][len2 + 1];
+            for (int i = 1; i <= len1; i++) {
+                for (int j = 1; j <= len2; j++) {
+                    if (cs1[i - 1] == cs2[j - 1]) {
+                        dp[i][j] = dp[i - 1][j - 1] + 1;
+                    } else {
+                        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                    }
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int[] a : dp) {
+                System.out.println(Arrays.toString(a));
+            }
+            int i = len1, j = len2;
+            while (i > 0 && j > 0) {
+                System.out.println(i + " " + j);
+                if (cs1[i - 1] == cs2[j - 1]) {
+                    sb.append(cs1[i - 1]);
+                    i--;
+                    j--;
+                } else if (dp[i - 1][j] > dp[i][j - 1]) {
+                    i--;
+                } else {
+                    j--;
+                }
+            }
+            return sb.reverse().toString();
+        }
     }
 
     public static void main(String[] args) {
         String text1 = "abcde", text2 = "ace";
         System.out.println(new Solution().longestCommonSubsequence(text1, text2));
+        System.out.println(new Solution().getLcsString(text1, text2));
     }
 }
