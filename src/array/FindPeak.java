@@ -21,39 +21,15 @@ public class FindPeak {
          * @return int整型
          */
         public int findPeakElement (int[] nums) {
-            int len = nums.length;
-            if (len == 1) {
-                return 0;
-            }
-            int[] sum = new int[len + 1];
-            for (int i = 0; i < len; i++) {
-                sum[i + 1] = sum[i] + nums[i];
-            }
-            int left = 0, right = len - 1;
+            int left = 0, right = nums.length - 1;
             while (left <= right) {
                 int mid = left + (right - left) / 2;
-                System.out.println(left + " " + right + " " + mid);
-                if (mid == 0 && nums[mid + 1] < nums[mid]) {
+                int leftNum = mid != 0 ? nums[mid - 1] : Integer.MIN_VALUE;
+                int rightNum = mid != nums.length - 1 ? nums[mid + 1] : Integer.MIN_VALUE;
+                if (nums[mid] > leftNum && nums[mid] > rightNum) {
                     return mid;
                 }
-                if (mid == len - 1 && nums[mid - 1] < nums[mid]) {
-                    return mid;
-                }
-                if (nums[mid - 1] < nums[mid] && nums[mid + 1] < nums[mid]) {
-                    return mid;
-                }
-                if (nums[left] >= nums[mid]) {
-                    right = mid - 1;
-                    continue;
-                }
-                if (nums[right] >= nums[mid]) {
-                    left = mid + 1;
-                    continue;
-                }
-                int leftSum = sum[mid] - sum[left];
-                int rightSum = sum[right + 1] - sum[mid + 1];
-                System.out.println(leftSum + " " + rightSum);
-                if (leftSum >= rightSum) {
+                if (leftNum > rightNum) {
                     right = mid - 1;
                 } else {
                     left = mid + 1;
@@ -64,7 +40,7 @@ public class FindPeak {
     }
 
     public static void main(String[] args) {
-        int[] nums = {1,2,3,4,5,6,7,8,9};
+        int[] nums = {3, 6};
         System.out.println(new Solution().findPeakElement(nums));
     }
 }
